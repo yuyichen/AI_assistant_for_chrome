@@ -1,0 +1,24 @@
+
+{  
+  "name": "AI助手",  
+  "manifest_version": 2,  
+  "version": "1.0.9",  
+  "description": "收藏素材到我的AI助手",  
+  "browser_action": {  
+    "default_icon": "icon.png" ,
+    "default_title": "AI助手",
+    "default_popup": "popup.html"
+  },
+  "permissions":[
+  	"tabs",
+    "activeTab",
+    "http://*.aiwriting.io/",
+    "https://*.aiwriting.io/",
+    "cookies",
+    "contextMenus"
+  ],
+  "background":{
+  	"persistent":false,
+  	"scripts":["js/background.js"]
+  }  
+} 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.form-input{
+			border:1px solid #dedede;
+			padding:5px 10px;
+			border-radius: 3px;
+			outline: none;
+			margin:10px 0; 
+		}
+		.form-input:focus{
+			border-color: #48ccff;
+			box-shadow: 0 0 5px #48ccff;
+		}
+		.form-btn{
+			outline: none;
+			border-radius: 3px;
+			border:none;
+			background: #48ccff;
+			color: #fff;
+			line-height: 2.2;
+			text-align: center;
+			display: block;
+			width: 100%;
+			cursor: pointer;
+			margin:10px 0; 
+			transition: all 0.3s;
+		}
+		.form-btn:hover,.form-btn:active{
+			background-color: #3eb0dc;
+		}
+		#saveResult{
+			color: #f44336;
+		}
+	</style>
+</head>
+<body>
+	<div id="loginBox">
+		<input type="text" value= "" class="form-input" id="username" placeholder="邮箱或手机号">
+		<input type="password" value= "" class="form-input" id="pwd" placeholder="密码">
+		<button id="loginBtn" class="form-btn">登录</button>
+	</div>
+	<div id="saveBox">
+		<p ><span id="userAccount"></span><a href="javascript:;" id="logoutLink" style="float: right;">注销</a></p> 
+		<textarea id="aiUrlInput" class="form-input" rows="5" style="resize: none;"></textarea>
+		<button id="aiSaveBtn" class="form-btn">收藏本页</button>
+	</div>
+	<div id="saveResult" style="display: none;">
+		保存成功
+	</div>
+	<script src="js/jquery.min.js"></script>	
+	<script src="js/app.js"></script>	
+</body>
+</html>
