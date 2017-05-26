@@ -1,0 +1,2 @@
+# AI_assistant_for_chrome
+chrome浏览器插件,主要功能是登录爱创账户,并能将当前网址的文章导入到爱创收藏中
