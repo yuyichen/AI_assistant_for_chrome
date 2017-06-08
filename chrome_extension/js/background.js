@@ -30,58 +30,116 @@ function saveUrl(myUrl,cb){
 
 //收藏本页
 chrome.contextMenus.create({id:'savePageToAiChuang',title:'收藏本页到我的爱创',contexts:['page']}, function (error){
-    console.log(error)
+    error && console.log(error)
 });
 
 //链接右键
 chrome.contextMenus.create({id:'saveUrlToAiChuang',title:'收藏链接文章到我的爱创',contexts:['link']}, function (error){
-    console.log(error)
+    error && console.log(error)
 });
 
 //图片右键
 chrome.contextMenus.create({id:'saveImgToAiChuang',title:'收藏图片到我的爱创',contexts:['image']}, function (error){
-    console.log(error)
+    error && console.log(error)
 });
 
 //选择文本右键
 chrome.contextMenus.create({id:'saveSelectionToAiChuang',title:'收藏文字到我的爱创',contexts:['selection']}, function (error){
-    console.log(error)
+    error && console.log(error)
 });
 
 
-console.log(localStorage['userAccount'])
 
 // 右键触发的保存事件
 chrome.contextMenus.onClicked.addListener(function(info){
 	console.log(info)
 	if(!localStorage['userAccount']){
-		alert("请先登录爱创")
+		chrome.notifications.create({
+		    "type": "basic",
+		    "iconUrl": chrome.extension.getURL("icon_48.png"),
+		    "title": "AI创助手提醒您",
+		    "message": '请先登录爱创'
+		});
+		// alert("请先登录爱创")
 		return;
 	}
 	switch(info.menuItemId){
 		case "savePageToAiChuang":
 		saveUrl(info.pageUrl, function(res) {
 		    if (res.status == "success") {
-		        alert('网页内容抓取，抓取成功');
+		    	chrome.notifications.create({
+				    "type": "basic",
+				    "iconUrl": chrome.extension.getURL("icon_48.png"),
+				    "title": "AI创助手提醒您",
+				    "message": '网页内容抓取，抓取成功'
+				},function(notification){
+			 	setTimeout(function(){
+				chrome.notifications.clear(notification);
+			},3000)
+			 });
+		        // alert('网页内容抓取，抓取成功');
 		    } else {
-		        alert(res.message);
+		    	chrome.notifications.create({
+				    "type": "basic",
+				    "iconUrl": chrome.extension.getURL("icon_48.png"),
+				    "title": "AI创助手提醒您",
+				    "message": res.message
+				 });
+		        // alert(res.message);
 		    }
 		})
 		break;
 		case "saveUrlToAiChuang":
 		saveUrl(info.linkUrl, function(res) {
 		    if (res.status == "success") {
-		        alert('网页内容抓取，抓取成功');
+		    	chrome.notifications.create({
+				    "type": "basic",
+				    "iconUrl": chrome.extension.getURL("icon_48.png"),
+				    "title": "AI创助手提醒您",
+				    "message": '网页内容抓取，抓取成功'
+				},function(notification){
+			 	setTimeout(function(){
+				chrome.notifications.clear(notification);
+			},3000)
+			 });
+		        // alert('网页内容抓取，抓取成功');
 		    } else {
-		        alert(res.message);
+		    	chrome.notifications.create({
+				    "type": "basic",
+				    "iconUrl": chrome.extension.getURL("icon_48.png"),
+				    "title": "AI创助手提醒您",
+				    "message": res.message
+				 });
+		        // alert(res.message);
 		    }
 		})
 		break;
 		case "saveImgToAiChuang":
-		alert(info.srcUrl);
+			chrome.notifications.create({
+			    "type": "basic",
+			    "iconUrl": chrome.extension.getURL("icon_48.png"),
+			    "title": "AI创助手提醒您",
+			    "message": "图片:"+info.srcUrl
+			 },function(notification){
+			 	setTimeout(function(){
+				chrome.notifications.clear(notification);
+			},3000)
+			 });
+		// alert(info.srcUrl);
 		break;
 		case "saveSelectionToAiChuang":
-		alert(info.selectionText);
+		// alert(info.selectionText);
+			chrome.notifications.create({
+			    "type": "basic",
+			    "iconUrl": chrome.extension.getURL("icon_48.png"),
+			    "title": "AI创助手提醒您",
+			    "message": "文本:"+info.selectionText
+			 },function(notification){
+			 	setTimeout(function(){
+				chrome.notifications.clear(notification);
+			},3000)
+			 });
+			
 		break;
 	}
    
