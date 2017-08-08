@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         爱创导购文收藏助手
-// @namespace    http://tampermonkey.net/
+// @namespace    https://aiwriting.io/
 // @version      0.1
 // @description  保存商品详细页内容到爱创
-// @author       LiLi
+// @author       羽衣尘
 // @match        https://item.taobao.com/*
 // @match        https://detail.tmall.com/*
 // @match        https://item.jd.com/*
@@ -37,7 +37,7 @@
             break;
     }
     function taobaoItemFun() {
-        document.querySelector(".tb-action").innerHTML +=('<div class="tb-btn-add"><a href="javascript:;" id="saveToAichuang" class="btn-special3 btn-lg" style="margin-top:10px;background-color:#00aaff;border-color:#00aaff;color:#fff;">保存到爱创</a></div>');
+        document.querySelector(".tb-action").innerHTML +=('<div class="tb-btn-buy"><a href="javascript:;" id="saveToAichuang" style="margin-top:10px;background-color:#00aaff;border-color:#00aaff;color:#fff;">保存到爱创</a></div>');
         document.querySelector('#saveToAichuang').onclick=saveItem;
     }
     function tmallItemFun() {
@@ -50,17 +50,44 @@
 
     }
     function saveItem(){
+        var btn = this;
+        if(btn.getAttribute('disabled')){
+            return false;
+        }
+        btn.setAttribute('disabled',true);
+        btn.innerText='保存中...';
         GM_xmlhttpRequest({
             method:'POST',
-            url:'https://aiwriting.io/',
-            data:{
-                body:document.body
+            url:'https://test.aiwriting.io/api/collect/page',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
             },
-            onload:function(response){
-                console.log(response);
+            data:{
+                url:location.href,
+                html:document.getElementsByTagName('html')[0].innerHTML
+            },
+            responseType :'json',
+            timeout:10000,
+            onload:function(xhr){
+                btn.removeAttribute('disabled');
+                if(xhr.readyState==4 && xhr.status==200){
+                    if(xhr.response.status=="success"){
+                        btn.innerText='保存成功';
+                    }else{
+                        btn.innerText='保存到爱创';
+                        alert(xhr.response.message);
+                    }
+                }else{
+                    btn.innerText='保存到爱创';
+                }
+            },
+            ontimeout:function(){
+                alert('请求超时');
+                btn.removeAttribute('disabled');
             },
             onerror:function(error){
-                return false;
+                alert('请求出错');
+                btn.removeAttribute('disabled');
             }
         });
     }
