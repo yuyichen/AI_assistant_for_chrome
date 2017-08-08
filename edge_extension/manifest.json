@@ -1,0 +1,37 @@
+{
+    "name": "AI助手",
+    "manifest_version": 2,
+    "version": "1.1.0",
+    "author": "mr-lili",
+    "description": "收藏素材到我的AI助手",
+    "browser_action": {
+        "default_icon": {
+            "19": "icon.png"
+        },
+        "default_title": "AI助手",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "19": "icon.png",
+        "48": "icon_48.png",
+        "128": "icon_128.png"
+    },
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "http://*.aiwriting.io/",
+        "https://*.aiwriting.io/",
+        "cookies",
+        "contextMenus",
+        "clipboardRead",
+        "notifications"
+    ],
+    "background": {
+        "page": "background.html",
+        "persistent": true
+    },
+    "-ms-preload": {
+        "backgroundScript": "backgroundScriptsAPIBridge.js",
+        "contentScript": "contentScriptsAPIBridge.js"
+    }
+}
