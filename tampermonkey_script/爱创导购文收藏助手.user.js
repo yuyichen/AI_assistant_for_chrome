@@ -62,10 +62,11 @@
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            data:{
-                url:location.href,
-                html:document.getElementsByTagName('html')[0].innerHTML
-            },
+            // data:{
+            //     url:location.href,
+            //     html:document.getElementsByTagName('html')[0].innerHTML
+            // },
+            data:'url='+encodeURIComponent(location.href)+'&html='+encodeURIComponent(document.getElementsByTagName('html')[0].innerHTML),
             responseType :'json',
             timeout:10000,
             onload:function(xhr){
