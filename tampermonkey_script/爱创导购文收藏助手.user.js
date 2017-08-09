@@ -73,7 +73,7 @@
                 btn.removeAttribute('disabled');
                 if(xhr.readyState==4 && xhr.status==200){
                     if(xhr.response.status=="success"){
-                        btn.innerText='保存成功';
+                        btn.innerText='已保存到爱创';
                     }else{
                         btn.innerText='保存到爱创';
                         alert(xhr.response.message);
